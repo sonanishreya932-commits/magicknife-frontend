@@ -1,0 +1,9 @@
+/* Hero Section Styles */
+.hero-container {
+  perspective: 1000px;
+}
+
+/* smooth scroll adjustment for hero */
+html {
+  scroll-behavior: smooth;
+}

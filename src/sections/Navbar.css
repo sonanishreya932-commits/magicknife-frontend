@@ -1,0 +1,59 @@
+.navbar {
+  position: absolute !important;
+  top: 0 !important;
+  width: 100% !important;
+  padding: 20px 60px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  z-index: 9999 !important;
+}
+
+/* LEFT */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-left img {
+  width: 40px;
+}
+
+.brand {
+  color: #d4af37;
+  letter-spacing: 2px;
+}
+
+/* CENTER (MAIN FIX) */
+.nav-center {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  gap: 40px !important;
+}
+
+.nav-center a {
+  color: white !important;
+  text-decoration: none;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-outline {
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: white;
+  padding: 6px 14px;
+}
+
+.btn-fill {
+  background: #d4af37;
+  border: none;
+  padding: 6px 14px;
+}
