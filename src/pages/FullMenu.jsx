@@ -22,7 +22,7 @@ export default function FullMenu() {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/menu')
+      const response = await fetch('https://magicknife-backend.onrender.com/api/menu')
       if (response.ok) {
         const data = await response.json()
         setMenuData(data)

@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout'
 import FloatingActions from './components/FloatingActions'
 import Menu from "./components/Menu";
 import TestMenu from "./pages/TestMenu";
+import MenuPage from './components/Menu';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -49,9 +50,10 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/test-menu" element={<TestMenu />} />
-          <Route path="/live-menu" element={<Menu />} />
+          <Route path="/live-menu" element={<MenuPage />} />
         </Routes>
-        { /* <FloatingActions /> */ }
+
+        {/* <FloatingActions /> */}
       </Router>
     </CartProvider>
   )
