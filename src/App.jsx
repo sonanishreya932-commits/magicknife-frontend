@@ -9,7 +9,7 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import Checkout from './pages/Checkout'
 import FloatingActions from './components/FloatingActions'
-import Menu from "./components/Menu";
+import Menu from "./components/MenuPage";
 import TestMenu from "./pages/TestMenu";
 import MenuPage from './components/Menu';
 

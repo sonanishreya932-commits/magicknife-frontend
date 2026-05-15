@@ -7,9 +7,9 @@ function MenuPage() {
   const fetchMenu = async () => {
     try {
       // Apne backend ka URL yahan dalein
-      // Pehle: axios.get('http://localhost:5000/menu')
+      // Pehle: axios.get('https://magicknife-backend.onrender.com/menu')
 // Ab aise karein:
-const response = await axios.get('https://magicknife-backend.onrender.com/menu');
+<h1 style={{ color: "red" }}>MENU PAGE API TEST</h1>
       setMenuItems(response.data);
     } catch (error) {
       console.error("Data fetch nahi ho raha:", error);
