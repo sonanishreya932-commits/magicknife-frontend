@@ -1,3 +1,6 @@
+<h1 style={{ color: "red", fontSize: "40px" }}>
+  UPDATED LIVE WEBSITE TEST
+</h1>
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Filter, Plus, ShoppingCart, X, ChevronRight, ArrowLeft } from 'lucide-react'
@@ -22,7 +25,7 @@ export default function FullMenu() {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await fetch('https://magicknife-backend.onrender.com/api/menu')
+     const response = await fetch('https://magicknife-backend.onrender.com/api/menu')
       if (response.ok) {
         const data = await response.json()
         setMenuData(data)
