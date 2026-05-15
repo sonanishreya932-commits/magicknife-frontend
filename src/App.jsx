@@ -11,7 +11,8 @@ import Checkout from './pages/Checkout'
 import FloatingActions from './components/FloatingActions'
 
 import TestMenu from "./pages/TestMenu";
-import MenuPage from './components/Menu';
+
+import MenuPage from './components/Menu'
 
 // Scroll to top on route change
 function ScrollToTop() {
