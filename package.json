@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "start https://themagicknife.com/",
-    "local": "vite",
-    "server": "cd server && npm run dev",
-    "full": "concurrently \"npm run local\" \"npm run server\"",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+  "dev": "vite",
+  "live": "start https://themagicknife.com/",
+  "server": "cd server && npm run dev",
+  "full": "concurrently \"npm run dev\" \"npm run server\"",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview"
+
   },
   "dependencies": {
     "axios": "^1.16.1",

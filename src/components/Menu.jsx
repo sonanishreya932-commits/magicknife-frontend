@@ -6,10 +6,12 @@ function MenuPage() {
 
   const fetchMenu = async () => {
     try {
-      // Apne backend ka URL yahan dalein
-      // Pehle: axios.get('https://magicknife-backend.onrender.com/menu')
-// Ab aise karein:
-<h1 style={{ color: "red" }}>MENU PAGE API TEST</h1>
+      const response = await axios.get(
+        'https://magicknife-backend.onrender.com/api/menu'
+      );
+
+      console.log("API DATA:", response.data);
+
       setMenuItems(response.data);
     } catch (error) {
       console.error("Data fetch nahi ho raha:", error);
@@ -17,21 +19,19 @@ function MenuPage() {
   };
 
   useEffect(() => {
-    // Pehli baar data lane ke liye
     fetchMenu();
 
-    // Har 5 second mein database check karne ke liye
     const interval = setInterval(() => {
       fetchMenu();
-    }, 5000); 
+    }, 5000);
 
-    // Jab component band ho toh interval saaf karne ke liye
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div>
-      <h1>Magicknife Menu</h1>
+      <h1 style={{ color: "red" }}>LIVE MENU TEST 123</h1>
+
       <ul>
         {menuItems.map((item, index) => (
           <li key={index}>
