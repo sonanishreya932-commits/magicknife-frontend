@@ -11,7 +11,7 @@ function MenuPage() {
       );
 
       console.log("API DATA:", response.data);
-
+      console.log("🔥 MENU.JSX IS RUNNING");
       setMenuItems(response.data);
     } catch (error) {
       console.error("Data fetch nahi ho raha:", error);
