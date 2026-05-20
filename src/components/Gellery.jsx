@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+throw new Error("GALLERY FILE TEST");
 import axios from "axios";
 import "./Gellery.css";
 import { useTranslation } from "react-i18next";
