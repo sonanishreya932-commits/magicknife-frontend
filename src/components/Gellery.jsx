@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-throw new Error("GALLERY FILE TEST");
 import axios from "axios";
 import "./Gellery.css";
 import { useTranslation } from "react-i18next";
@@ -27,24 +26,39 @@ const Gallery = () => {
     "Desserts",
   ];
 
-  // Dynamic Gallery API
+  // ✅ FIXED: Auto-refresh + no cache API
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    console.log("🔥 GALLERY COMPONENT RUNNING");
+    const fetchGallery = () => {
+      axios
+        .get(
+          "https://magicknife-backend.onrender.com/api/gallery?ts=" +
+            Date.now(),
+          {
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+            },
+          }
+        )
+        .then((res) => {
+          console.log("🔥 LIVE GALLERY API:", res.data);
 
-    axios
-      .get("https://magicknife-backend.onrender.com/api/gallery")
-      .then((res) => {
-        console.log("🔥 LIVE GALLERY API:", res.data);
+          setImages(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("❌ Gallery Error:", err);
+          setLoading(false);
+        });
+    };
 
-        setImages(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("❌ Gallery Error:", err);
-        setLoading(false);
-      });
+    fetchGallery(); // initial load
+
+    const interval = setInterval(fetchGallery, 5000); // auto refresh every 5 sec
+
+    return () => clearInterval(interval);
   }, []);
 
   // Filters

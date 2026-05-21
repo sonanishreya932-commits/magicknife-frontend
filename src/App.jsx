@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 import { CartProvider } from "./context/CartContext";
@@ -13,6 +13,7 @@ import TestMenu from "./pages/TestMenu";
 
 import Menu from "./components/Menu"; // ✅ clean naming
 
+// Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -23,14 +24,20 @@ function ScrollToTop() {
   return null;
 }
 
+// ✅ SAFE REDIRECT (FIXED VERSION)
 function RedirectToTarget() {
   const location = useLocation();
+  const hasRedirected = useRef(false);
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      window.location.replace("https://themagicknife.com/");
+    if (location.pathname === "/" && !hasRedirected.current) {
+      hasRedirected.current = true;
+
+      setTimeout(() => {
+        window.location.replace("https://themagicknife.com/");
+      }, 50);
     }
-  }, [location]);
+  }, [location.pathname]);
 
   return null;
 }
