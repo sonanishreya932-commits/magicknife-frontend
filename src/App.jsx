@@ -5,7 +5,7 @@ import { CartProvider } from "./context/CartContext";
 
 import Home from "./pages/Home";
 import FullMenu from "./pages/FullMenu";
-import GalleryPage from "./components/Gellery";
+import GalleryPage from "./components/Gellary";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import Checkout from "./pages/Checkout";
