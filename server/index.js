@@ -25,8 +25,17 @@ const menuItemSchema = new mongoose.Schema({
 
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 
+// Gallery Item Schema
+const galleryItemSchema = new mongoose.Schema({
+  title: String,
+  image: String
+}, { collection: 'gallery', strict: false });
+
+const GalleryItem = mongoose.model('GalleryItem', galleryItemSchema);
+
+
 // API Routes
-app.get('/api/menu', async (req, res) => {
+const getMenuHandlerLocal = async (req, res) => {
   try {
     const menuItems = await MenuItem.find();
     
@@ -49,7 +58,23 @@ app.get('/api/menu', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-});
+};
+
+app.get('/menu', getMenuHandlerLocal);
+app.get('/api/menu', getMenuHandlerLocal);
+
+const getGalleryHandlerLocal = async (req, res) => {
+  try {
+    const galleryItems = await GalleryItem.find({});
+    res.json(galleryItems);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+app.get('/gallery', getGalleryHandlerLocal);
+app.get('/api/gallery', getGalleryHandlerLocal);
+
 
 // Seed Initial Data
 app.post('/api/seed', async (req, res) => {
@@ -62,6 +87,7 @@ app.post('/api/seed', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

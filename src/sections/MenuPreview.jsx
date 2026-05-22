@@ -15,7 +15,12 @@ const MenuPreview = () => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/menu')
+      const response = await fetch('https://magicknife-backend.onrender.com/menu?ts=' + Date.now(), {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
       if (response.ok) {
         const data = await response.json()
         setMenuData(data)

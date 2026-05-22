@@ -1,3 +1,4 @@
+console.log("🔥 MENU PAGE RENDERED");
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,7 +10,8 @@ function MenuPage() {
   const fetchMenu = async () => {
     try {
       const response = await axios.get(
-        'https://magicknife-backend.onrender.com/api/menu?ts=' + Date.now(),
+      "https://magicknife-backend.onrender.com/api/menu?v=" +
+        new Date().getTime(),
         {
           headers: {
             "Cache-Control": "no-cache",

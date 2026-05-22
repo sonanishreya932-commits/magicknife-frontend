@@ -1,12 +1,55 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Plus } from 'lucide-react'
+import axios from 'axios'
 
 export default function FoodGallery() {
   const { t } = useTranslation();
+  const [galleryItems, setGalleryItems] = useState([]);
 
-  const galleryItems = t('gallery.items', { returnObjects: true }) || [];
+  useEffect(() => {
+    const fetchGallery = () => {
+      axios
+        .get(
+          "https://magicknife-backend.onrender.com/api/gallery?ts=" + Date.now(),
+          {
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data && Array.isArray(res.data)) {
+            const normalized = res.data.map((item) => ({
+              title: item.title || item.name || "",
+              src: item.image || item.src || "",
+            }));
+            setGalleryItems(normalized);
+          } else {
+            setFallback();
+          }
+        })
+        .catch((err) => {
+          console.error("❌ FoodGallery API Error:", err);
+          setFallback();
+        });
+    };
+
+    const setFallback = () => {
+      const fallbackItems = t("gallery.items", { returnObjects: true }) || [];
+      setGalleryItems(fallbackItems);
+    };
+
+    fetchGallery();
+
+    const interval = setInterval(fetchGallery, 5000);
+
+    return () => clearInterval(interval);
+  }, [t]);
+
 
   return (
     <section id="gallery" className="relative bg-main py-24 sm:py-32 overflow-hidden">

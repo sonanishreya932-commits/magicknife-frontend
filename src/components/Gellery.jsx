@@ -185,8 +185,8 @@ const Gallery = () => {
                   onClick={() => setSelectedImage(item)}
                 >
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={item.image || item.src}
+                    alt={item.title || item.name}
                     loading="lazy"
                     onError={(e) => {
                       e.target.onerror = null;
@@ -202,7 +202,7 @@ const Gallery = () => {
                     </div>
 
                     <h4 className="font-display text-xs tracking-[0.2em] text-white uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                      {item.title}
+                      {item.title || item.name}
                     </h4>
                   </div>
                 </motion.div>
@@ -237,14 +237,14 @@ const Gallery = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={selectedImage.image}
-                alt={selectedImage.title}
+                src={selectedImage.image || selectedImage.src}
+                alt={selectedImage.title || selectedImage.name}
                 className="w-full h-full object-contain"
               />
 
               <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
                 <h3 className="text-white font-display text-2xl tracking-[0.2em] uppercase">
-                  {selectedImage.title}
+                  {selectedImage.title || selectedImage.name}
                 </h3>
               </div>
             </motion.div>
