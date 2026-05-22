@@ -33,9 +33,9 @@ function RedirectToTarget() {
     if (location.pathname === "/" && !hasRedirected.current) {
       hasRedirected.current = true;
 
-      setTimeout(() => {
+  setTimeout(() => {
         window.location.replace("https://themagicknife.com/");
-      }, 50);
+      }, 50); 
     }
   }, [location.pathname]);
 

@@ -23,8 +23,7 @@ export default function FullMenu() {
     try {
       console.log("🔥 FETCHING MENU")
 
-      const response = await fetch(
-        "https://magicknife-backend.onrender.com/api/menu?ts=" + Date.now(),
+     const res = await axios.get("https://your-backend.onrender.com/api/menu");
         {
           headers: {
             "Cache-Control": "no-cache",

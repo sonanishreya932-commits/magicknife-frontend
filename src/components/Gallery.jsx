@@ -7,8 +7,10 @@ import Navbar from "../sections/Navbar";
 import Footer from "../sections/Footer";
 import { Plus, X } from "lucide-react";
 
+const BASE_URL = "https://magicknife-backend.onrender.com";
+
 const Gallery = () => {
-  console.log("🔥 GELLERY.JSX IS RUNNING");
+  console.log("🔥 GALLERY.JSX IS RUNNING");
 
   const { t } = useTranslation();
 
@@ -17,7 +19,6 @@ const Gallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Categories
   const categories = [
     "All",
     "Main Course",
@@ -26,22 +27,17 @@ const Gallery = () => {
     "Desserts",
   ];
 
-  // ✅ FIXED: Auto-refresh + no cache API
   useEffect(() => {
     window.scrollTo(0, 0);
 
     const fetchGallery = () => {
       axios
-        .get(
-          "https://magicknife-backend.onrender.com/api/gallery?ts=" +
-            Date.now(),
-          {
-            headers: {
-              "Cache-Control": "no-cache",
-              Pragma: "no-cache",
-            },
-          }
-        )
+        .get(`${BASE_URL}/api/gallery?ts=${Date.now()}`, {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+          },
+        })
         .then((res) => {
           console.log("🔥 LIVE GALLERY API:", res.data);
 
@@ -56,12 +52,11 @@ const Gallery = () => {
 
     fetchGallery(); // initial load
 
-    const interval = setInterval(fetchGallery, 5000); // auto refresh every 5 sec
+    const interval = setInterval(fetchGallery, 5000); // auto refresh
 
     return () => clearInterval(interval);
   }, []);
 
-  // Filters
   const filteredImages = images.filter((img) => {
     const title = img.title?.toLowerCase() || "";
 
@@ -105,17 +100,15 @@ const Gallery = () => {
       <main className="pt-32 pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          {/* DEBUG TEST */}
-          <div
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: "30px",
-              marginBottom: "20px",
-              fontWeight: "bold",
-            }}
-          >
-            LIVE GALLERY API TEST
+          {/* DEBUG */}
+          <div style={{
+            color: "red",
+            textAlign: "center",
+            fontSize: "24px",
+            marginBottom: "20px",
+            fontWeight: "bold",
+          }}>
+            LIVE GALLERY API WORKING
           </div>
 
           {/* Heading */}
@@ -139,7 +132,7 @@ const Gallery = () => {
             <div className="mt-8 mx-auto h-[1px] w-32 bg-primary/50" />
           </div>
 
-          {/* Filter Tabs */}
+          {/* Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-16">
             {categories.map((cat) => (
               <button
@@ -170,9 +163,9 @@ const Gallery = () => {
             </h2>
           )}
 
-          {/* Gallery Grid */}
+          {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence>
               {filteredImages.map((item, index) => (
                 <motion.div
                   key={index}
@@ -187,23 +180,11 @@ const Gallery = () => {
                   <img
                     src={item.image || item.src}
                     alt={item.title || item.name}
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=800&auto=format&fit=crop";
-                    }}
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
 
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-[2px]">
-                    <div className="size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-4 scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
-                      <Plus className="text-white" size={24} />
-                    </div>
-
-                    <h4 className="font-display text-xs tracking-[0.2em] text-white uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                      {item.title || item.name}
-                    </h4>
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Plus className="text-white" size={30} />
                   </div>
                 </motion.div>
               ))}
@@ -216,38 +197,21 @@ const Gallery = () => {
       <AnimatePresence>
         {selectedImage && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
             onClick={() => setSelectedImage(null)}
           >
             <button
-              className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
+              className="absolute top-8 right-8 text-white"
               onClick={() => setSelectedImage(null)}
             >
               <X size={40} />
             </button>
 
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-5xl w-full aspect-video sm:aspect-square lg:aspect-video overflow-hidden rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedImage.image || selectedImage.src}
-                alt={selectedImage.title || selectedImage.name}
-                className="w-full h-full object-contain"
-              />
-
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
-                <h3 className="text-white font-display text-2xl tracking-[0.2em] uppercase">
-                  {selectedImage.title || selectedImage.name}
-                </h3>
-              </div>
-            </motion.div>
+            <motion.img
+              src={selectedImage.image || selectedImage.src}
+              alt=""
+              className="max-w-full max-h-full object-contain"
+            />
           </motion.div>
         )}
       </AnimatePresence>
