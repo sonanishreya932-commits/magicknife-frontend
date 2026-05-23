@@ -24,9 +24,10 @@ export default function FullMenu() {
     try {
       console.log("🔥 FETCHING MENU")
 
-      const res = await axios.get(
-        "https://your-backend.onrender.com/api/menu",
-        {
+     const res = await axios.get(
+     "https://magicknife-backend.onrender.com/api/menu",
+  {
+        
           headers: {
             "Cache-Control": "no-cache",
             "Pragma": "no-cache"
