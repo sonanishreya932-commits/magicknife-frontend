@@ -66,6 +66,13 @@ export default function FullMenu() {
       <Navbar />
 
       <main className="pt-32 pb-24">
+        <div style={{
+  color: "red",
+  fontSize: "30px",
+  textAlign: "center"
+}}>
+  FULLMENU TEST 999
+</div>
 
         {/* Debug */}
         <div className="text-center text-red-500 mb-6">
