@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../sections/Navbar'
@@ -23,7 +24,8 @@ export default function FullMenu() {
     try {
       console.log("🔥 FETCHING MENU")
 
-     const res = await axios.get("https://your-backend.onrender.com/api/menu");
+      const res = await axios.get(
+        "https://your-backend.onrender.com/api/menu",
         {
           headers: {
             "Cache-Control": "no-cache",
@@ -32,15 +34,9 @@ export default function FullMenu() {
         }
       )
 
-      if (!response.ok) {
-        throw new Error("API response not OK")
-      }
+      console.log("🔥 MENU DATA:", res.data)
 
-      const data = await response.json()
-
-      console.log("🔥 MENU DATA:", data)
-
-      setMenuData(Array.isArray(data) ? data : [])
+      setMenuData(Array.isArray(res.data) ? res.data : [])
     } catch (error) {
       console.log("❌ ERROR:", error)
       setMenuData([])
@@ -49,17 +45,13 @@ export default function FullMenu() {
     }
   }
 
-  // Categories from MongoDB category field
+  // Categories from MongoDB
   const categories = [
     'All',
-    ...new Set(
-      menuData
-        .map(item => item?.category)
-        .filter(Boolean)
-    )
+    ...new Set(menuData.map(item => item?.category).filter(Boolean))
   ]
 
-  // Filter logic for flat MongoDB structure
+  // Filter logic
   const filteredData = menuData.filter(item =>
     (activeTab === 'All' || item?.category === activeTab) &&
     (
@@ -108,9 +100,7 @@ export default function FullMenu() {
         </div>
 
         {loading ? (
-          <h1 className="text-center text-white">
-            Loading Menu...
-          </h1>
+          <h1 className="text-center text-white">Loading Menu...</h1>
         ) : (
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
 
