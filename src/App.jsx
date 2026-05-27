@@ -47,7 +47,8 @@ function App() {
     <CartProvider>
       <Router>
         <ScrollToTop />
-        <RedirectToTarget />
+      {/*  <RedirectToTarget /> */}
+        <CartProvider/>
 
         <Routes>
           <Route path="/" element={<Home />} />
