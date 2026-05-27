@@ -10,7 +10,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import Checkout from "./pages/Checkout";
 import TestMenu from "./pages/TestMenu";
-
+import Admin from "./pages/Admin";
 import Menu from "./components/Menu"; // ✅ clean naming
 
 // Scroll to top on route change
@@ -57,7 +57,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/test-menu" element={<TestMenu />} />
-          <Route path="/live-menu" element={<Menu />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </CartProvider>

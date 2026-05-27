@@ -1,56 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Plus } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
-import Navbar from '../sections/Navbar'
-import Footer from '../sections/Footer'
-import { useCart } from '../context/CartContext'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Plus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import Navbar from '../sections/Navbar';
+import Footer from '../sections/Footer';
+import { useCart } from '../context/CartContext';
 
 export default function FullMenu() {
-  const { t } = useTranslation()
-  const { addToCart } = useCart()
+  const { t } = useTranslation();
+  const { addToCart } = useCart();
 
-  const [activeTab, setActiveTab] = useState('All')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [menuData, setMenuData] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [menuData, setMenuData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log("🔥 FULLMENU MOUNTED")
-    fetchMenuItems()
-  }, [])
-
+  // 🚀 FETCH MENU
   const fetchMenuItems = async () => {
     try {
-      console.log("🔥 FETCHING MENU")
+      console.log("🔥 FETCHING MENU");
 
-     const res = await axios.get(
-     "https://magicknife-backend.onrender.com/api/menu",
-  {
-        
+      setLoading(true);
+
+      const res = await axios.get(
+        "https://magicknife-backend.onrender.com/api/menu?ts=" + Date.now(),
+        {
           headers: {
             "Cache-Control": "no-cache",
             "Pragma": "no-cache"
           }
         }
-      )
+      );
 
-      console.log("🔥 MENU DATA:", res.data)
-
-      setMenuData(Array.isArray(res.data) ? res.data : [])
+      console.log("🔥 LIVE MENU DATA:", res.data);
+      
+      setMenuData(JSON.parse(JSON.stringify(res.data)));
     } catch (error) {
-      console.log("❌ ERROR:", error)
-      setMenuData([])
+      console.log("❌ ERROR:", error);
+      setMenuData([]);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
+  // 🚀 AUTO LIVE UPDATE SYSTEM
+  useEffect(() => {
+    console.log("🔥 FULLMENU MOUNTED");
+
+    fetchMenuItems();
+
+    const interval = setInterval(() => {
+      console.log("🔄 AUTO REFRESH MENU");
+      fetchMenuItems();
+    }, 2000); // 2 sec live update
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Categories from MongoDB
   const categories = [
     'All',
     ...new Set(menuData.map(item => item?.category).filter(Boolean))
-  ]
+  ];
 
   // Filter logic
   const filteredData = menuData.filter(item =>
@@ -59,27 +70,27 @@ export default function FullMenu() {
       item?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item?.desc?.toLowerCase().includes(searchQuery.toLowerCase())
     )
-  )
+  );
 
   return (
     <div className="min-h-screen bg-[#080d0e] text-white">
       <Navbar />
 
       <main className="pt-32 pb-24">
-        <div style={{
-  color: "red",
-  fontSize: "30px",
-  textAlign: "center"
-}}>
-  FULLMENU TEST 999
-</div>
 
-        {/* Debug */}
+        <div style={{
+          color: "red",
+          fontSize: "30px",
+          textAlign: "center"
+        }}>
+          FULLMENU TEST 999
+        </div>
+
         <div className="text-center text-red-500 mb-6">
           LIVE MENU TEST
         </div>
 
-        {/* Category Tabs */}
+        {/* CATEGORY */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((cat) => (
             <button
@@ -96,7 +107,7 @@ export default function FullMenu() {
           ))}
         </div>
 
-        {/* Search */}
+        {/* SEARCH */}
         <div className="flex justify-center mb-8">
           <input
             type="text"
@@ -107,6 +118,7 @@ export default function FullMenu() {
           />
         </div>
 
+        {/* MENU LIST */}
         {loading ? (
           <h1 className="text-center text-white">Loading Menu...</h1>
         ) : (
@@ -159,5 +171,5 @@ export default function FullMenu() {
 
       <Footer />
     </div>
-  )
+  );
 }
