@@ -1,3 +1,4 @@
+console.log("🔥 FULLMENU LOADED")
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Plus } from 'lucide-react';
@@ -34,12 +35,12 @@ export default function FullMenu() {
 
       console.log("🔥 LIVE MENU DATA:", res.data);
       
-      setMenuData(JSON.parse(JSON.stringify(res.data)));
+      setMenuData(JSON.parse(JSON.stringify(res.data.menu)));
     } catch (error) {
       console.log("❌ ERROR:", error);
       setMenuData([]);
     } finally {
-      setLoading(false);
+      setLoading(false);  
     }
   };
 
