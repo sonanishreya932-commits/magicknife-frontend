@@ -1,4 +1,3 @@
-console.log("MenuPreview RENDERED")
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
@@ -6,11 +5,12 @@ import { Link } from 'react-router-dom'
 import { ChevronRight, ArrowRight } from 'lucide-react'
 
 const MenuPreview = () => {
-  if (!Array.isArray(menuData)) return null
   const { t } = useTranslation()
   const [menuData, setMenuData] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState(0)
+
+  console.log("MenuPreview RENDERED")
 
   useEffect(() => {
     fetchMenuItems()
@@ -30,23 +30,34 @@ const MenuPreview = () => {
       }
 
       const data = await response.json()
-      console.log("MENU DATA:", data)
 
-      setMenuData(data.menu)
+      console.log("FULL API:", data)
+      console.log("MENU ONLY:", data.menu)
 
+      setMenuData(data.menu || [])
     } catch (error) {
       console.error('Error fetching menu preview:', error)
 
       setMenuData(
         t('menu_preview.categories', { returnObjects: true }) || []
       )
+    } finally {
+      setLoading(false)
     }
   }
 
-  if (!menuData || menuData.length === 0) return null
+  if (loading) return <div>Loading...</div>
+
+  if (!Array.isArray(menuData) || menuData.length === 0) {
+    console.log("menuData empty:", menuData)
+    return null
+  }
 
   return (
-    <section id="menu" className="relative bg-[#080d0e] py-24 sm:py-32 overflow-hidden border-t border-primary/10">
+    <section
+      id="menu"
+      className="relative bg-[#080d0e] py-24 sm:py-32 overflow-hidden border-t border-primary/10"
+    >
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
 
@@ -124,6 +135,7 @@ const MenuPreview = () => {
                       <h4 className="font-display text-lg tracking-widest text-white group-hover:text-primary transition-colors uppercase">
                         {item.name}
                       </h4>
+
                       <span className="font-sans text-primary font-bold">
                         {item.price}
                       </span>
