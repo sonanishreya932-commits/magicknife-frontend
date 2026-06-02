@@ -22,7 +22,7 @@ function ScrollToTop() {
   }, [pathname]);
 
    return null;
-  
+
 
 }
 
@@ -54,7 +54,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<FullMenu />} />
+          <Route path="/menu" element={<h1>MENU PAGE LOADED</h1>} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
