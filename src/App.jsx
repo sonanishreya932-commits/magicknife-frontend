@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 import { CartProvider } from "./context/CartContext";
@@ -11,7 +11,7 @@ import ContactPage from "./pages/ContactPage";
 import Checkout from "./pages/Checkout";
 import TestMenu from "./pages/TestMenu";
 import Admin from "./pages/Admin";
-import Menu from "./components/Menu"; // ✅ clean naming
+import Menu from "./components/Menu";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -21,26 +21,6 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-   return null;
-
-
-}
-
-// ✅ SAFE REDIRECT (FIXED VERSION)
-function RedirectToTarget() {
-  const location = useLocation();
-  const hasRedirected = useRef(false);
-
-  useEffect(() => {
-    if (location.pathname === "/" && !hasRedirected.current) {
-      hasRedirected.current = true;
-
-  setTimeout(() => {
-        window.location.replace("https://themagicknife.com/");
-      }, 50); 
-    }
-  }, [location.pathname]);
-
   return null;
 }
 
@@ -49,17 +29,15 @@ function App() {
     <CartProvider>
       <Router>
         <ScrollToTop />
-      {/*  <RedirectToTarget /> */}
-        <CartProvider/>
-
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<h1>MENU PAGE LOADED</h1>} />
+          <Route path="/menu" element={<FullMenu />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/test-menu" element={<TestMenu />} />
+          <Route path="/live-menu" element={<Menu />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>

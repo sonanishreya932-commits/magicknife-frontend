@@ -25,7 +25,7 @@ const FullMenu = () => {
       setLoading(true);
 
       const res = await axios.get(
-        "https://magicknife-backend.onrender.com/api/menu?ts=" + Date.now(),
+        "https://magicknife-backend.onrender.com/api/menu?flat=true&ts=" + Date.now(),
         {
           headers: {
             "Cache-Control": "no-cache",
