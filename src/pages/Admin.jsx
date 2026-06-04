@@ -250,6 +250,10 @@ export default function Admin() {
   // Dashboard Screen (Authenticated)
   return (
     <div className="min-h-screen bg-[#0b1315] text-white font-sans antialiased">
+      {/* TEST BANNER - REMOVE LATER */}
+      <div style={{backgroundColor: "#ff0000", color: "#fff", fontSize: "24px", fontWeight: "bold", textAlign: "center", padding: "20px"}}>
+        🚀 ADMIN PANEL DEPLOYED SUCCESSFULLY! 🚀
+      </div>
       {/* HEADER NAVBAR */}
       <header className="border-b border-white/10 bg-[#080d0e]/80 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
