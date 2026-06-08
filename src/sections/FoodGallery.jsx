@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import axios from 'axios'
+import { SITE } from '../constants/site'
 
 export default function FoodGallery() {
   const { t } = useTranslation();
@@ -12,8 +13,7 @@ export default function FoodGallery() {
   useEffect(() => {
     const fetchGallery = () => {
       axios
-        .get(
-          "https://magicknife-backend.onrender.com/api/gallery?ts=" + Date.now(),
+        .get(`${SITE.apiBase}/api/gallery?ts=` + Date.now(),
           {
             headers: {
               "Cache-Control": "no-cache",
@@ -81,16 +81,16 @@ export default function FoodGallery() {
             whileInView={{ opacity: 1, y: 0 }}
           >
             <a 
-              href="https://instagram.com" 
+              href={SITE.instagram}
               target="_blank" 
               rel="noopener noreferrer"
               className="group flex items-center gap-4 text-white/60 hover:text-primary transition-all duration-300"
             >
               <div className="size-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
-                <svg size={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-bold uppercase tracking-widest">Follow us on</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t('gallery_page.follow')}</span>
                 <span className="text-sm font-display tracking-widest text-white">@themagicknife</span>
               </div>
             </a>

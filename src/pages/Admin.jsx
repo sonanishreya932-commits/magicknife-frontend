@@ -4,6 +4,7 @@ import {
   Plus, Edit2, Trash2, Lock, LogOut, CheckCircle, 
   XCircle, Loader2, Sparkles, Search, RefreshCw, Undo2
 } from "lucide-react";
+import { SITE } from "../constants/site";
 
 export default function Admin() {
   // Authorization State
@@ -32,7 +33,7 @@ export default function Admin() {
   // Toast notification state
   const [toast, setToast] = useState({ show: false, message: "", type: "success" });
 
-  const API_URL = "https://magicknife-backend.onrender.com/api/menu";
+  const API_URL = `${SITE.apiBase}/api/menu`;
 
   // Check login state on mount
   useEffect(() => {

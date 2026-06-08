@@ -8,10 +8,18 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/magicknife_db';
+
+const MONGODB_URI =
+  "mongodb+srv://shreya:3909@cluster0.szphdnx.mongodb.net/magicknife_db?retryWrites=true&w=majority";
 
 mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB Compass'))
+  .then(() => {
+
+    console.log("HOST:", mongoose.connection.host);
+    console.log("DB:", mongoose.connection.name);
+
+    console.log('Connected to MongoDB Compass');
+  })
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
 // Menu Item Schema

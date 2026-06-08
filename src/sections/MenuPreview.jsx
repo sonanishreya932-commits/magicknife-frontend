@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ChevronRight, ArrowRight } from 'lucide-react'
+import { SITE } from '../constants/site'
 
 const MenuPreview = () => {
   const { t } = useTranslation()
@@ -10,16 +11,16 @@ const MenuPreview = () => {
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState(0)
 
-  console.log("MenuPreview RENDERED")
-
   useEffect(() => {
     fetchMenuItems()
+    const interval = setInterval(fetchMenuItems, 5000)
+    return () => clearInterval(interval)
   }, [])
 
   const fetchMenuItems = async () => {
     try {
       const response = await fetch(
-        'https://magicknife-backend.onrender.com/api/menu?ts=' + Date.now(),
+        `${SITE.apiBase}/api/menu?ts=` + Date.now(),
         {
           cache: 'no-store'
         }
@@ -30,17 +31,12 @@ const MenuPreview = () => {
       }
 
       const data = await response.json()
-
-      console.log("FULL API:", data)
-      console.log("MENU ONLY:", data.menu)
+      console.log("MENU PREVIEW API DATA:", data)
+console.log("FIRST ITEM:", data?.menu?.[0]?.items?.[0]?.name)
 
       setMenuData(data.menu || [])
     } catch (error) {
-      console.error('Error fetching menu preview:', error)
-
-      setMenuData(
-        t('menu_preview.categories', { returnObjects: true }) || []
-      )
+      setMenuData(t('menu_preview.categories', { returnObjects: true }) || [])
     } finally {
       setLoading(false)
     }
@@ -49,7 +45,6 @@ const MenuPreview = () => {
   if (loading) return <div>Loading...</div>
 
   if (!Array.isArray(menuData) || menuData.length === 0) {
-    console.log("menuData empty:", menuData)
     return null
   }
 
@@ -142,7 +137,7 @@ const MenuPreview = () => {
                     </div>
 
                     <p className="text-white/40 font-sans text-sm leading-relaxed max-w-md">
-                      {item.desc}
+                      {item.desc || item.description}
                     </p>
                   </div>
                 ))}

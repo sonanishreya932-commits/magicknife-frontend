@@ -1,36 +1,11 @@
 import { Star, Quote } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { SITE } from '../constants/site'
 
 export default function Testimonials() {
   const { t } = useTranslation();
-
-  const testimonials = [
-    {
-      text: "Das beste Dosa, das ich je in Frankfurt gegessen habe! Authentischer Geschmack und toller Service.",
-      author: "James W.",
-      role: "Feinschmecker",
-      stars: 5
-    },
-    {
-      text: "Magic Knife bringt die wahren Aromen von Mumbai Street Food. Das Pav Bhaji ist ein Muss!",
-      author: "Sarah L.",
-      role: "Stammgast",
-      stars: 5
-    },
-    {
-      text: "Phantastisches südindisches Essen. Das Sambar ist perfekt gewürzt und die Idlis sind so weich.",
-      author: "Robert D.",
-      role: "Liebhaber indischer Küche",
-      stars: 5
-    },
-    {
-      text: "Ein verstecktes Juwel in Griesheim. Tolle Atmosphäre und noch bessere vegetarische Optionen.",
-      author: "Michael K.",
-      role: "Local Guide",
-      stars: 5
-    }
-  ]
+  const testimonials = t('testimonials.items', { returnObjects: true }) || [];
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#080d0e] py-24 sm:py-32">
@@ -67,7 +42,7 @@ export default function Testimonials() {
               <Quote className="absolute top-6 right-6 h-8 w-8 text-primary/10 transition-colors group-hover:text-primary/20" />
               
               <div className="mb-6 flex gap-1">
-                {[...Array(testimonial.stars)].map((_, i) => (
+                {[...Array(testimonial.stars || 5)].map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-primary text-primary" />
                 ))}
               </div>
@@ -99,12 +74,12 @@ export default function Testimonials() {
           className="mt-20 text-center"
         >
           <a 
-            href="https://www.google.com/search?q=Magic+Knife+Frankfurt+reviews" 
+            href={SITE.googleReviews}
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 text-white/60 hover:text-primary hover:border-primary transition-all text-xs font-bold uppercase tracking-widest"
           >
-            <span>View all Google Reviews</span>
+            <span>{t('footer.reviews')}</span>
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
           </a>
         </motion.div>

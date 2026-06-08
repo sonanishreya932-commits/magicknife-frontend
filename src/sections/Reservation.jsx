@@ -48,8 +48,8 @@ export default function Reservation() {
                   <Calendar className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-sm uppercase tracking-widest text-white">Select Date</h4>
-                  <p className="mt-2 font-sans text-sm text-white/50 leading-relaxed">Choose your preferred dining date. We recommend booking at least 2 days in advance for weekends.</p>
+                  <h4 className="font-display text-sm uppercase tracking-widest text-white">{t('reservation.date_title')}</h4>
+                  <p className="mt-2 font-sans text-sm text-white/50 leading-relaxed">{t('reservation.date_desc')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-6 group">
@@ -57,8 +57,8 @@ export default function Reservation() {
                   <Users className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-display text-sm uppercase tracking-widest text-white">Party Size</h4>
-                  <p className="mt-2 font-sans text-sm text-white/50 leading-relaxed">Tell us how many guests to expect. For parties larger than 8, please call us directly.</p>
+                  <h4 className="font-display text-sm uppercase tracking-widest text-white">{t('reservation.guests_title')}</h4>
+                  <p className="mt-2 font-sans text-sm text-white/50 leading-relaxed">{t('reservation.guests_desc')}</p>
                 </div>
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function Reservation() {
                           onChange={handleChange}
                           className="w-full appearance-none border-b border-white/20 bg-transparent px-2 py-4 font-sans text-lg text-white transition-all focus:border-primary focus:outline-none"
                         >
-                          <option value="" className="bg-[#080d0e]">Select Time</option>
+                          <option value="" className="bg-[#080d0e]">{t('reservation.select_time')}</option>
                           {['12:00', '12:30', '13:00', '13:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00'].map(t => (
                             <option key={t} value={t} className="bg-[#080d0e]">{t}</option>
                           ))}

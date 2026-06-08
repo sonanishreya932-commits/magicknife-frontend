@@ -11,7 +11,6 @@ import ContactPage from "./pages/ContactPage";
 import Checkout from "./pages/Checkout";
 import TestMenu from "./pages/TestMenu";
 import Admin from "./pages/Admin";
-import Menu from "./components/Menu";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -32,12 +31,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<FullMenu />} />
+          <Route path="/our-menu" element={<FullMenu />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/test-menu" element={<TestMenu />} />
-          <Route path="/live-menu" element={<Menu />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>

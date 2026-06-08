@@ -32,11 +32,27 @@ const resources = {
         button2: 'BOOK A TABLE'
       },
       contact: {
+        subtitle: 'Get in touch',
         title: 'CONTACT US',
-        name: 'Name',
-        email: 'E-mail',
+        location: 'Location',
+        phone: 'Phone',
+        email_label: 'Email',
+        hours: 'Hours',
+        form_title: 'Send a Message',
+        name: 'Your Name',
+        email: 'Email Address',
         message: 'Message',
-        send: 'SEND'
+        send: 'SEND MESSAGE',
+        success: 'Thank you! We will get back to you soon.'
+      },
+      menu_page: {
+        subtitle: 'Our Full Selection',
+        title: 'THE MENU',
+        search: 'Search dishes...',
+        loading: 'Loading menu...',
+        empty: 'No dishes found',
+        add: 'Add to Cart',
+        all: 'All'
       },
       about: {
         subtitle: 'Our Story',
@@ -60,7 +76,20 @@ const resources = {
         follow_us_title: 'Follow Us',
         contact_info_title: 'Contact Info',
         shipping: 'Visit us in Frankfurt Griesheim.',
-        copyright: 'Magic Knife - Authentic Indian Cuisine. All rights reserved.'
+        copyright: 'Magic Knife - Authentic Indian Cuisine. All rights reserved.',
+        days: {
+          monday: 'Monday',
+          tuesday: 'Tuesday',
+          wednesday: 'Wednesday',
+          thursday: 'Thursday',
+          friday: 'Friday',
+          saturday: 'Saturday',
+          sunday: 'Sunday'
+        },
+        reviews: 'View all Google Reviews',
+        impressum: 'Impressum',
+        privacy: 'Datenschutz',
+        vegetarian: 'Pure Vegetarian Restaurant'
       },
       gallery: {
         subtitle: 'Our Visual Story',
@@ -145,6 +174,11 @@ const resources = {
         success_title: 'Thank You!',
         success_msg: 'Your reservation request has been received. We will contact you shortly to confirm your table.',
         back_btn: 'Back to booking',
+        date_title: 'Select Date',
+        date_desc: 'Choose your preferred dining date. We recommend booking at least 2 days in advance for weekends.',
+        guests_title: 'Party Size',
+        guests_desc: 'Tell us how many guests to expect. For parties larger than 8, please call us directly.',
+        select_time: 'Select Time',
         form: {
           name: 'Full Name',
           name_ph: 'Enter your name',
@@ -161,7 +195,32 @@ const resources = {
         subtitle: 'Signature Dishes',
         title: 'OUR SPECIALTIES',
         description: 'Discover our most beloved creations, where traditional Indian techniques meet modern culinary excellence.',
-        button: 'VIEW ALL DISHES'
+        button: 'Explore Recipe',
+        items: [
+          {
+            title: 'SIGNATURE MASALA DOSA',
+            subtitle: 'South Indian Classic',
+            image: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=800',
+            description: 'A golden crispy rice crepe filled with spiced potato mash, served with authentic sambar and coconut chutney.'
+          },
+          {
+            title: 'PANEER TIKKA SIZZLER',
+            subtitle: 'Tandoori Masterpiece',
+            image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800',
+            description: 'Marinated cottage cheese cubes grilled to perfection in a traditional clay oven, served with mint chutney.'
+          },
+          {
+            title: 'BOMBAY STREET CHAAT',
+            subtitle: 'Flavor Explosion',
+            image: 'https://images.unsplash.com/photo-1626132646529-5aa212ddbae1?auto=format&fit=crop&q=80&w=800',
+            description: 'A vibrant mix of crispy puris, tangy tamarind, cool yogurt, and aromatic spices. The soul of Mumbai street food.'
+          }
+        ]
+      },
+      gallery_page: {
+        loading: 'Loading Gallery...',
+        empty: 'No Gallery Images Found',
+        follow: 'Follow us on'
       }
     }
   },
@@ -194,11 +253,27 @@ const resources = {
         button2: 'TISCH RESERVIEREN'
       },
       contact: {
-        title: 'KONTAKTIEREN SIE UNS',
-        name: 'Name',
-        email: 'E-mail',
+        subtitle: 'Kontaktieren Sie uns',
+        title: 'KONTAKT',
+        location: 'Standort',
+        phone: 'Telefon',
+        email_label: 'E-Mail',
+        hours: 'Öffnungszeiten',
+        form_title: 'Nachricht senden',
+        name: 'Ihr Name',
+        email: 'E-Mail-Adresse',
         message: 'Nachricht',
-        send: 'SENDEN'
+        send: 'NACHRICHT SENDEN',
+        success: 'Vielen Dank! Wir melden uns in Kürze bei Ihnen.'
+      },
+      menu_page: {
+        subtitle: 'Unsere gesamte Auswahl',
+        title: 'DAS MENÜ',
+        search: 'Gerichte suchen...',
+        loading: 'Menü wird geladen...',
+        empty: 'Keine Gerichte gefunden',
+        add: 'In den Warenkorb',
+        all: 'Alle'
       },
       about: {
         subtitle: 'Unsere Geschichte',
@@ -222,7 +297,20 @@ const resources = {
         follow_us_title: 'Folgen Sie uns',
         contact_info_title: 'Kontaktinfo',
         shipping: 'Besuchen Sie uns in Frankfurt Griesheim.',
-        copyright: 'Magic Knife - Authentische indische Küche. Alle Rechte vorbehalten.'
+        copyright: 'Magic Knife - Authentische indische Küche. Alle Rechte vorbehalten.',
+        days: {
+          monday: 'Montag',
+          tuesday: 'Dienstag',
+          wednesday: 'Mittwoch',
+          thursday: 'Donnerstag',
+          friday: 'Freitag',
+          saturday: 'Samstag',
+          sunday: 'Sonntag'
+        },
+        reviews: 'Alle Google-Bewertungen ansehen',
+        impressum: 'Impressum',
+        privacy: 'Datenschutz',
+        vegetarian: 'Rein vegetarisches Restaurant'
       },
       gallery: {
         subtitle: 'Unsere visuelle Geschichte',
@@ -307,6 +395,11 @@ const resources = {
         success_title: 'Vielen Dank!',
         success_msg: 'Ihre Reservierungsanfrage ist eingegangen. Wir werden Sie in Kürze kontaktieren, um Ihren Tisch zu bestätigen.',
         back_btn: 'Zurück zur Buchung',
+        date_title: 'Datum wählen',
+        date_desc: 'Wählen Sie Ihr bevorzugtes Datum. Für Wochenenden empfehlen wir eine Buchung mindestens 2 Tage im Voraus.',
+        guests_title: 'Personenzahl',
+        guests_desc: 'Teilen Sie uns mit, wie viele Gäste Sie erwarten. Für Gruppen über 8 Personen rufen Sie uns bitte direkt an.',
+        select_time: 'Uhrzeit wählen',
         form: {
           name: 'Vollständiger Name',
           name_ph: 'Geben Sie Ihren Namen ein',
@@ -322,8 +415,33 @@ const resources = {
       specialties: {
         subtitle: 'Empfehlung',
         title: 'UNSERE BESTEN SPEZIALITÄTEN',
-        description: 'Sorgfältig zubereitet mit größter Sorgfalt, repräsentiert unsere Signature Dosa den Höhepunkt der Südindischen Küche in Frankfurt. Diese goldene Südindische Crepe, gefüllt mit hochwertigen Gemüsen und aromatischen Gewürzen, verkörpert authentisches indisches Street Food & Manchurian Handwerkskunst in Vollendung.',
-        button: 'MEHR ENTDECKEN'
+        description: 'Sorgfältig zubereitet mit größter Sorgfalt — authentische indische Küche in Frankfurt.',
+        button: 'Mehr entdecken',
+        items: [
+          {
+            title: 'SIGNATURE MASALA DOSA',
+            subtitle: 'Südindischer Klassiker',
+            image: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=800',
+            description: 'Ein goldener knuspriger Reis-Crepe gefüllt mit gewürztem Kartoffelpüree, serviert mit authentischem Sambar und Kokos-Chutney.'
+          },
+          {
+            title: 'PANEER TIKKA SIZZLER',
+            subtitle: 'Tandoori-Meisterwerk',
+            image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800',
+            description: 'Marinierte Hüttenkäsewürfel, perfekt gegrillt im traditionellen Lehmofen, serviert mit Minz-Chutney.'
+          },
+          {
+            title: 'BOMBAY STREET CHAAT',
+            subtitle: 'Geschmacksexplosion',
+            image: 'https://images.unsplash.com/photo-1626132646529-5aa212ddbae1?auto=format&fit=crop&q=80&w=800',
+            description: 'Eine lebendige Mischung aus knusprigen Puris, würzigem Tamarind, kühlem Joghurt und aromatischen Gewürzen.'
+          }
+        ]
+      },
+      gallery_page: {
+        loading: 'Galerie wird geladen...',
+        empty: 'Keine Galeriebilder gefunden',
+        follow: 'Folgen Sie uns auf'
       }
     }
   }

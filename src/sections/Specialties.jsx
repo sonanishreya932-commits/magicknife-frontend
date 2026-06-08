@@ -1,34 +1,14 @@
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { ChevronRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Specialties() {
   const { t } = useTranslation();
-
-  const specialtyItems = [
-    {
-      title: "SIGNATURE MASALA DOSA",
-      subtitle: "South Indian Classic",
-      image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=800",
-      description: "A golden crispy rice crepe filled with spiced potato mash, served with authentic sambar and coconut chutney."
-    },
-    {
-      title: "PANEER TIKKA SIZZLER",
-      subtitle: "Tandoori Masterpiece",
-      image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
-      description: "Marinated cottage cheese cubes grilled to perfection in a traditional clay oven, served with mint chutney."
-    },
-    {
-      title: "BOMBAY STREET CHAAT",
-      subtitle: "Flavor Explosion",
-      image: "https://images.unsplash.com/photo-1626132646529-5aa212ddbae1?auto=format&fit=crop&q=80&w=800",
-      description: "A vibrant mix of crispy puris, tangy tamarind, cool yogurt, and aromatic spices. The soul of Mumbai street food."
-    }
-  ];
+  const specialtyItems = t('specialties.items', { returnObjects: true }) || [];
 
   return (
     <section id="specialties" className="relative bg-[#080d0e] py-24 sm:py-32 overflow-hidden border-t border-primary/10">
-      {/* Background Decorative Text */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.02] flex items-center justify-center select-none">
         <h2 className="font-display text-[25vw] uppercase leading-none text-white whitespace-nowrap">Signature</h2>
       </div>
@@ -63,15 +43,15 @@ export default function Specialties() {
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-8">
                 <img
-                src={item.image}
-                alt={item.title}
-                crossOrigin="anonymous"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=800&auto=format&fit=crop";
-                }}
-                className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
+                  src={item.image}
+                  alt={item.title}
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=800&auto=format&fit=crop";
+                  }}
+                  className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
                 
                 <div className="absolute bottom-8 left-8 right-8">
@@ -88,9 +68,9 @@ export default function Specialties() {
                 <p className="font-sans text-sm text-white/60 leading-relaxed font-light">
                   {item.description}
                 </p>
-                <a href="#menu" className="inline-flex items-center gap-2 text-primary text-[10px] font-bold uppercase tracking-[0.3em] hover:text-white transition-colors">
-                  Explore Recipe <ChevronRight size={12} />
-                </a>
+                <Link to="/menu" className="inline-flex items-center gap-2 text-primary text-[10px] font-bold uppercase tracking-[0.3em] hover:text-white transition-colors">
+                  {t('specialties.button')} <ChevronRight size={12} />
+                </Link>
               </div>
             </motion.div>
           ))}

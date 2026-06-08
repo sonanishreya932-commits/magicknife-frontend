@@ -1,0 +1,46 @@
+GODADDY UPLOAD — Magic Knife (API-connected build)
+==================================================
+
+ZIP file: godaddy-upload.zip (same folder as this file)
+Built: production build → connects to magicknife-backend.onrender.com
+Compass/Atlas menu changes will show on themagicknife.com after upload.
+
+ANYDESK: AI cannot connect via AnyDesk. Follow these steps (5-10 min).
+
+STEP 1 — GoDaddy login
+  https://sso.godaddy.com
+  → My Products → Web Hosting → Manage → cPanel / File Manager
+
+STEP 2 — Backup old site (optional but recommended)
+  File Manager → public_html
+  Select all → Compress → Download backup zip
+
+STEP 3 — Clear public_html
+  Open public_html folder
+  Select ALL files and folders INSIDE public_html
+  Delete (NOT the public_html folder itself)
+  Keep empty public_html
+
+STEP 4 — Upload new build
+  Option A: Upload godaddy-upload.zip → Extract in public_html
+  Option B: Upload everything from dist/ folder:
+    - index.html
+    - .htaccess
+    - favicon.svg, icons.svg
+    - assets/ folder (entire folder)
+
+STEP 5 — Verify
+  Open https://themagicknife.com/
+  Open https://themagicknife.com/menu
+  Menu should load from live API (172+ items)
+
+STEP 6 — Test Compass changes
+  Edit menu in MongoDB Compass (Atlas connection)
+  Wait 5 seconds → refresh themagicknife.com/menu
+
+TROUBLESHOOTING
+  - Blank page: ensure .htaccess uploaded (show hidden files in File Manager)
+  - Old site still shows: clear browser cache (Ctrl+Shift+R) or try incognito
+  - Menu empty: check Render backend is running (magicknife-backend.onrender.com/api/menu)
+
+Local build folder: c:\react\magicknife-saas\dist\

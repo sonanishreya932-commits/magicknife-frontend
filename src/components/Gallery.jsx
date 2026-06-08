@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Gallery.css";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../sections/Navbar";
 import Footer from "../sections/Footer";
 import { Plus, X } from "lucide-react";
-
-const BASE_URL = "https://magicknife-backend.onrender.com";
+import { SITE } from "../constants/site";
 
 const Gallery = () => {
-  console.log("🔥 GALLERY.JSX IS RUNNING");
-
   const { t } = useTranslation();
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -32,39 +28,33 @@ const Gallery = () => {
 
     const fetchGallery = () => {
       axios
-        .get(`${BASE_URL}/api/gallery?ts=${Date.now()}`, {
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-          },
+        .get(`${SITE.apiBase}/api/gallery?ts=${Date.now()}`, {
+          headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
         })
         .then((res) => {
-          console.log("🔥 LIVE GALLERY API:", res.data);
-
-          setImages(res.data);
+          if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+            setImages(res.data);
+          } else {
+            setImages(t("gallery.items", { returnObjects: true }) || []);
+          }
           setLoading(false);
         })
-        .catch((err) => {
-          console.log("❌ Gallery Error:", err);
+        .catch(() => {
+          setImages(t("gallery.items", { returnObjects: true }) || []);
           setLoading(false);
         });
     };
 
-    fetchGallery(); // initial load
-
-    const interval = setInterval(fetchGallery, 5000); // auto refresh
-
+    fetchGallery();
+    const interval = setInterval(fetchGallery, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [t]);
 
   const filteredImages = images.filter((img) => {
-    const title = img.title?.toLowerCase() || "";
-
+    const title = (img.title || img.name || "").toLowerCase();
     if (filter === "All") return true;
-
     if (filter === "South Indian")
       return title.includes("dosa") || title.includes("idli");
-
     if (filter === "Street Food")
       return (
         title.includes("puri") ||
@@ -73,14 +63,8 @@ const Gallery = () => {
         title.includes("samosa") ||
         title.includes("chat")
       );
-
     if (filter === "Desserts")
-      return (
-        title.includes("jamun") ||
-        title.includes("payasam") ||
-        title.includes("dessert")
-      );
-
+      return title.includes("jamun") || title.includes("dessert");
     if (filter === "Main Course")
       return (
         !title.includes("dosa") &&
@@ -89,7 +73,6 @@ const Gallery = () => {
         !title.includes("pav") &&
         !title.includes("jamun")
       );
-
     return true;
   });
 
@@ -99,19 +82,6 @@ const Gallery = () => {
 
       <main className="pt-32 pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-          {/* DEBUG */}
-          <div style={{
-            color: "red",
-            textAlign: "center",
-            fontSize: "24px",
-            marginBottom: "20px",
-            fontWeight: "bold",
-          }}>
-            LIVE GALLERY API WORKING
-          </div>
-
-          {/* Heading */}
           <div className="text-center mb-16">
             <motion.span
               initial={{ opacity: 0 }}
@@ -120,7 +90,6 @@ const Gallery = () => {
             >
               {t("gallery.subtitle")}
             </motion.span>
-
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -128,11 +97,9 @@ const Gallery = () => {
             >
               OUR <span className="text-primary">GALLERY</span>
             </motion.h1>
-
             <div className="mt-8 mx-auto h-[1px] w-32 bg-primary/50" />
           </div>
 
-          {/* Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-16">
             {categories.map((cat) => (
               <button
@@ -149,21 +116,18 @@ const Gallery = () => {
             ))}
           </div>
 
-          {/* Loading */}
           {loading && (
-            <h2 className="text-center text-white text-2xl">
-              Loading Gallery...
-            </h2>
+            <p className="text-center text-white/50 font-light tracking-widest uppercase text-sm">
+              {t("gallery_page.loading")}
+            </p>
           )}
 
-          {/* Empty */}
           {!loading && filteredImages.length === 0 && (
-            <h2 className="text-center text-red-500 text-2xl">
-              No Gallery Images Found
-            </h2>
+            <p className="text-center text-white/50 font-light tracking-widest uppercase text-sm">
+              {t("gallery_page.empty")}
+            </p>
           )}
 
-          {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <AnimatePresence>
               {filteredImages.map((item, index) => (
@@ -182,7 +146,6 @@ const Gallery = () => {
                     alt={item.title || item.name}
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-
                   <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <Plus className="text-white" size={30} />
                   </div>
@@ -193,7 +156,6 @@ const Gallery = () => {
         </div>
       </main>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -206,10 +168,9 @@ const Gallery = () => {
             >
               <X size={40} />
             </button>
-
             <motion.img
               src={selectedImage.image || selectedImage.src}
-              alt=""
+              alt={selectedImage.title || selectedImage.name || ""}
               className="max-w-full max-h-full object-contain"
             />
           </motion.div>
